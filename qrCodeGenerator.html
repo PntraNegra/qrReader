@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">    
+        <title>QR CODE GENERATOR</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <link href="/styles.css" rel="stlyesheet">
+    </head>
+    <body>
+        <div class="container pt-3 pb-5">
+          <header>
+            <div class="row">
+                <div class="col">
+                    <h1>Welcome to the simple QR Code Generator.</h1>
+                </div>
+            </div>
+            <div class="row pt-3 pb-3">
+              <div class="col">
+                <p>To get get started type your url below without using "https" or "www"(example: google.com). After typing in your url the generated code will appear at the bottom of the screen. You can then scan that code and it will take you to your desired website!</p>
+                <br>
+                <p>You can then copy it, share it and send it over to where ever it needs to go!<br> Enjoy.</p>
+                <p>--Note, new urls will be chained one after another until the page is refreshed.</p>
+              </div>
+            </div>
+          </header>
+            <form id="form" class="m-3">
+              <div class="mb-3">
+                <label for="formUrl" class="form-label">Please input website URL(ex. google.com)</label>
+                <input type="text" class="form-control" id="formUrl" aria-describedby="formUrl">
+                <div class="form-text">Please don't add "www" or "https"</div>
+              </div>
+              <button type="button" value="Change" onclick="insertUrl()" class="btn btn-primary">Submit</button>
+            </form>
+            <div class="row">
+              <div class="col">
+                  <div id="qrBlock">
+
+                  </div>
+              </div>
+            </div>
+            
+        </div>
+        <div class="container">
+          <footer>
+            <div class="row">
+              <div class="col text-secondary">
+                <p>Thank you for using this basic app. <br> Created by Brian Cervantes with ❤️ using QR Code Generator api</p>
+                
+                <p><strong> Check them out below!</strong></p>
+                <a href="https://goqr.me/api/" target="_blank">https://goqr.me/api/</a>
+              </div>
+            </div>
+          </footer>
+        </div>
+
+        <script>
+        
+          function insertUrl() {
+
+            // accessing the container
+
+            let qrBlock = document.getElementById('qrBlock');
+
+            // creating the paragraph element
+
+            let paragraph = document.createElement('p');
+
+            // creating image element
+
+            let img = document.createElement('img');
+
+            // creating QR Code
+
+            let url = document.forms['form'].elements['formUrl'].value;
+            let updatedUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${url};size=100x100`;
+
+            // creating text to add to the p element
+
+            let text = document.createTextNode(`QR code for "${url}". If the URL is incorrect please update it now.`);
+            
+            // rendering to page
+
+            paragraph.appendChild(text);
+            qrBlock.appendChild(paragraph);
+            img.src = updatedUrl;
+            qrBlock.appendChild(img);
+
+            // Checking values
+            console.log(updatedUrl);
+            console.log(url)
+            
+          }
+        </script>
+    </body>
+</html>
